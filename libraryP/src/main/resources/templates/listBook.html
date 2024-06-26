@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Book</title>
+</head>
+<body>
+<table>
+    <!-- Dong tieu de bang -->
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    <tr th:each="u : ${listB}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

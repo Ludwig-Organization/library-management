@@ -15,9 +15,11 @@ import java.util.List;
 
 public interface CategoryService {
     void addCate(Category category);
-    void updateCate(Category category);
+	CateDTO getCateById(int id);
+    CateDTO updateCate(Category category);
     //Add list of Categories
     List<CateDTO> listCate();
+
 }
 @Service
 class CateServiceImpl1 implements CategoryService{
@@ -33,8 +35,24 @@ class CateServiceImpl1 implements CategoryService{
 	}
 	@Override
 	@Transactional
-	public void updateCate(Category category) {
-		cateRepo.save(category);
+	public CateDTO getCateById(int id) {
+		Category categoryDB = cateRepo.findById(id).orElse(null);
+		if (categoryDB != null){
+			return CateServiceImpl1.ConvertCateToCateDTO(categoryDB);
+		}else {
+			return new CateDTO();
+		}
+	}
+	@Override
+	@Transactional
+	public CateDTO updateCate(Category category) {
+		Category cateDB = cateRepo.findById(category.getId()).orElse(null);
+		if (cateDB != null){
+			cateRepo.save(category);
+			return CateServiceImpl1.ConvertCateToCateDTO(category);
+		}else {
+			return new CateDTO();
+		}
 	}
 	@Override
 	@Transactional
@@ -44,7 +62,9 @@ class CateServiceImpl1 implements CategoryService{
 		list.stream().forEach(s->dtoSet.add(CateServiceImpl1.ConvertCateToCateDTO(s)));
 		return dtoSet;
 	}
-	private static CateDTO ConvertCateToCateDTO(Category category){
+
+
+	public static CateDTO ConvertCateToCateDTO(Category category){
 		CateDTO cateDTO = new CateDTO();
 		List<Book> list = category.getBookList();
 		Map<Integer, String> listDTO = new HashMap<>();

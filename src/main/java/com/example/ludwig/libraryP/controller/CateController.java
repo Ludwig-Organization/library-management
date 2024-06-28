@@ -20,9 +20,13 @@ public class CateController {
     public void addCate(@RequestBody @Valid Category category){
         categoryService.addCate(category);
     }
-    @PostMapping("/edit")
-    public void updateCate(@RequestBody Category category){
-        categoryService.updateCate(category);
+    @GetMapping("/{id}")
+    public CateDTO getCateById(@PathVariable("id") int id){
+        return categoryService.getCateById(id);
+    }
+    @PostMapping("/edit-name")
+    public CateDTO updateName(@RequestBody Category category){
+        return categoryService.updateCate(category);
     }
     @GetMapping("/list")
     public List<CateDTO> listCate(){

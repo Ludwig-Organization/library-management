@@ -30,7 +30,6 @@ class StudentServiceImp1 implements StudentService {
     public void addStudent(Student student) {
         studentRepo.save(student);
     }
-
     @Override
     @Transactional
     public Student findStudentById(int id) {

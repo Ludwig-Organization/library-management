@@ -1,10 +1,9 @@
 package com.example.ludwig.libraryP.controller;
-
+import com.example.ludwig.libraryP.dto.CateDTO;
 import com.example.ludwig.libraryP.model.Category;
 import com.example.ludwig.libraryP.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +21,11 @@ public class CateController {
         categoryService.addCate(category);
     }
     @PostMapping("/edit")
-    public void updateCate(@RequestBody @Validated() Category category){
+    public void updateCate(@RequestBody Category category){
         categoryService.updateCate(category);
     }
     @GetMapping("/list")
-    public List<Category> listCate(){
+    public List<CateDTO> listCate(){
         return categoryService.listCate();
     }
 }

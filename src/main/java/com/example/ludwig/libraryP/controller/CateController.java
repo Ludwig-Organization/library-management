@@ -24,7 +24,7 @@ public class CateController {
     public CateDTO getCateById(@PathVariable("id") int id){
         return categoryService.getCateById(id);
     }
-    @PostMapping("/edit-name")
+    @PutMapping("/edit-name")
     public CateDTO updateName(@RequestBody Category category){
         return categoryService.updateCate(category);
     }

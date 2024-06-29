@@ -1,8 +1,8 @@
 package com.example.ludwig.libraryP.controller;
-
 import com.example.ludwig.libraryP.model.Book;
 import com.example.ludwig.libraryP.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +16,8 @@ public class BookController {
         this.bookService = bookService;
     }
     @PostMapping("/add")
-    private Book addBook(@RequestBody Book book){
+    private void addBook(@RequestBody Book book){
         bookService.addBook(book);
-        return book;
     }
     @GetMapping("/list")
     public List<Book> getAll(){
@@ -38,7 +37,7 @@ public class BookController {
         return bookService.getById(book.getId());
     }
     @GetMapping("/listAvailable")
-    public List<Book> listBookStock(String name){
+    public List<Book> listBookStock(@Param("name") String name){
         return bookService.listBookStock(name);
     }
 }

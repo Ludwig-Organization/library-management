@@ -17,9 +17,7 @@ public interface CategoryService {
     void addCate(Category category);
 	CateDTO getCateById(int id);
     CateDTO updateCate(Category category);
-    //Add list of Categories
     List<CateDTO> listCate();
-
 }
 @Service
 class CateServiceImpl1 implements CategoryService{

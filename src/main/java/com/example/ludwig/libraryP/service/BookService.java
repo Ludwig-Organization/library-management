@@ -31,6 +31,7 @@ class BookServiceImp1 implements BookService{
     @Override
     @Transactional
     public void addBook(Book book) {
+
         Category category = cateRepo.findById(book.getCategory().getId()).orElse(null);
         book.setCategory(category);
         bookRepo.save(book);

@@ -1,4 +1,5 @@
 package com.example.ludwig.libraryP.controller;
+import com.example.ludwig.libraryP.dto.BookDTO;
 import com.example.ludwig.libraryP.model.Book;
 import com.example.ludwig.libraryP.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +17,28 @@ public class BookController {
         this.bookService = bookService;
     }
     @PostMapping("/add")
-    private void addBook(@RequestBody Book book){
-        bookService.addBook(book);
+    private BookDTO addBook(@RequestBody Book book){
+        return bookService.addBook(book);
     }
-    @GetMapping("/list")
-    public List<Book> getAll(){
+    @GetMapping("/list") //done
+    public List<BookDTO> getAll(){
         return bookService.getAll();
     }
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") int id){
         bookService.deleteBookById(id);
     }
-    @GetMapping("/getById")
-    public Book getBookById(@RequestParam("id") int id){
+    @GetMapping("/getById") //done
+    public BookDTO getBookById(@RequestParam("id") int id){
         return bookService.getById(id);
     }
     @PutMapping("/edit")
-    public Book editNameById(@RequestBody Book book){
+    public BookDTO editNameById(@RequestBody Book book){
         bookService.updateBook(book);
         return bookService.getById(book.getId());
     }
     @GetMapping("/listAvailable")
-    public List<Book> listBookStock(@Param("name") String name){
+    public List<BookDTO> listBookStock(@Param("name") String name){
         return bookService.listBookStock(name);
     }
 }

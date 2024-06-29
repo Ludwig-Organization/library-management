@@ -4,9 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Entity
@@ -28,9 +26,6 @@ public class Student {
     @Future(message = "Only future time applicable")
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
-    @NotNull
-    @Pattern(regexp = "^UTC+[-+]+[0-9]{2}+[:]+[0-9]{2}$", message = "your input is not valid")
-    private String timeZone = "UTC+7:00";
-    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE)
-    private List<Book> list = new ArrayList<>();
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private Set<Book> list = new HashSet<>();
 }

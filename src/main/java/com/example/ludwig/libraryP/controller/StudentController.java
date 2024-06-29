@@ -1,11 +1,16 @@
 package com.example.ludwig.libraryP.controller;
+import com.example.ludwig.libraryP.dto.StudentDTO;
 import com.example.ludwig.libraryP.model.Book;
 import com.example.ludwig.libraryP.model.Student;
 import com.example.ludwig.libraryP.service.StudentService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/student")
@@ -17,14 +22,14 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add") //done
     private Student addStudent(@RequestBody Student student){
         studentService.addStudent(student);
         System.out.println("Student controller: Show student id when adding student "+student.getId());
         return student;
     }
 
-    @GetMapping("/getById")
+    @GetMapping("/getById") //done
     public Student getStudentById(@RequestParam("id") int id){
         return studentService.findStudentById(id);
     }
@@ -34,8 +39,13 @@ public class StudentController {
         studentService.updateStudent(student);
     }
 
-    @GetMapping("/getListBook")
-    public List<Book> getListBookByStudentId(@RequestParam("id") int id){
-        return studentService.getListBook(id);
+    @GetMapping("/getListBook") //done
+    public Set<Book> getListBookByStudentId(@RequestParam("id") int id){
+        return studentService.getListBookByStudentID(id);
+    }
+
+    @PutMapping("/borrowBook")
+    public StudentDTO borrowBook(@RequestBody Student student){
+        return studentService.borrowBook(student);
     }
 }

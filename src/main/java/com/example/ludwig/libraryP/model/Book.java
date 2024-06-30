@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
-@Table(name = "book")
+@Data
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@EqualsAndHashCode
+//@Table(name = "book")
 @Entity
 public class Book {
     @Id
@@ -30,21 +30,23 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "category_id")
     @JsonBackReference("category-books")
+    @ToString.Exclude
     private Category category;
     @ManyToOne
     @JoinColumn(name = "student_id")
     @JsonBackReference("student-books")
+    @ToString.Exclude
     private Student student;
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", status=" + status +
-                ", category=" + category +
-                ", student=" + student +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Book{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", author='" + author + '\'' +
+//                ", publisher='" + publisher + '\'' +
+//                ", status=" + status +
+//                ", category=" + category +
+//                ", student=" + student +
+//                '}';
+//    }
 }

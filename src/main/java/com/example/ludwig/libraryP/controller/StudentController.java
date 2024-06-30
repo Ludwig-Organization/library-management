@@ -29,7 +29,7 @@ public class StudentController {
         return student;
     }
 
-    @GetMapping("/getById") //done
+    @GetMapping("/getStudentById") //done
     public Student getStudentById(@RequestParam("id") int id){
         return studentService.findStudentById(id);
     }

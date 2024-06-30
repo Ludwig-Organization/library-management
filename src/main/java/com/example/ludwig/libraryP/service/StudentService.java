@@ -42,7 +42,9 @@ class StudentServiceImp1 implements StudentService {
     @Override
     @Transactional
     public Student findStudentById(int id) {
-        return studentRepo.findById(id).orElse(null);
+        Student student =  studentRepo.findById(id).orElse(null);
+        Set<Book> bookSet = student.getList();
+        return student;
     }
 
     @Override
@@ -60,18 +62,20 @@ class StudentServiceImp1 implements StudentService {
         }
         return bookSet;
     }
-
     @Override
     public StudentDTO borrowBook(Student student) {
         Student studentDB = studentRepo.findById(student.getId()).orElse(null);
         //Handle list Books of input
+        Set<Book> bookSet1 = new HashSet<>();
         for (Book b : student.getList()){
             Book book = bookRepo.findById(b.getId()).orElse(null);
             if (book != null && book.isStatus() == true){
                 book.setStatus(false);
                 book.setStudent(studentDB);
+                bookSet1.add(book);
             }
         }
+        studentDB.setList(bookSet1);
         studentRepo.save(studentDB);
         Set<Book> bookSet = getListBookByStudentID(student.getId());
         StudentDTO studentDTO = new StudentDTO();

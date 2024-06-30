@@ -4,9 +4,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.*;
 
-@Data
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 //@Table(name = "book")
 @Entity
 public class Book {
@@ -23,8 +28,23 @@ public class Book {
     //RelationShip
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private Category category;
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @ToString.Exclude
     private Student student;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", status=" + status +
+                ", category=" + category +
+//                ", student=" + student.getId() +
+                '}';
+    }
 }

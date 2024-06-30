@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-//@Table(name = "book")
+@Table(name = "book")
 @Entity
 public class Book {
     @Id

@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface BookRepo extends JpaRepository<Book, Integer> {
-    //Note: status: 1-OK, 0-NG
-    @Query(nativeQuery = true, name = "select * from book where status = 1 and name like %:name%")
-    List<Book> findBookStockByName(@Param("name") String name);
+    //Note: status: true - OK, false - NG
+    @Query("select b from Book b where b.status = true and b.name like %:name%")
+    Set<Book> findBookStockByName(@Param("name") String name);
 }

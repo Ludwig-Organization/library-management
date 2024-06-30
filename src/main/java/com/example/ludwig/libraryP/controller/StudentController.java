@@ -39,7 +39,7 @@ public class StudentController {
         studentService.updateStudent(student);
     }
 
-    @GetMapping("/getListBook") //done
+    @GetMapping("/getListBookByStudentID") //done
     public Set<Book> getListBookByStudentId(@RequestParam("id") int id){
         return studentService.getListBookByStudentID(id);
     }

@@ -9,11 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.ZonedDateTime;
 import java.util.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
+@Data
 @Entity
 public class Student {
     @Id
@@ -30,24 +26,9 @@ public class Student {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP) //don't change type from bigger type to smaller, it will lose data
     private ZonedDateTime borrowDate;
-    @Future(message = "Only future time applicable")
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
     @OneToMany(mappedBy = "student", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @JsonManagedReference("student-books")
     private Set<Book> list = new HashSet<>();
-    @Override
-    public String toString() {
-
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", borrowDate=" + borrowDate +
-                ", returnDate=" + returnDate +
-                ", list=" + list +
-                '}';
-    }
 }

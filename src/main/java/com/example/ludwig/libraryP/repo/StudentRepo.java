@@ -15,5 +15,6 @@ import com.example.ludwig.libraryP.model.Student;
 public interface StudentRepo extends JpaRepository<Student, Integer> {
     @Query("select b from Book b where b.student.id = :id")
     Set<Book> getBooksByStudentId(@Param("id") int id);
+
 }
 

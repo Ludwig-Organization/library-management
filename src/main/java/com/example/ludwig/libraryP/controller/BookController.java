@@ -1,6 +1,7 @@
 package com.example.ludwig.libraryP.controller;
 import com.example.ludwig.libraryP.dto.BookDTO;
 import com.example.ludwig.libraryP.model.Book;
+import com.example.ludwig.libraryP.model.BookManagement;
 import com.example.ludwig.libraryP.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -37,8 +38,12 @@ public class BookController {
         bookService.updateBook(book);
         return bookService.getById(book.getId());
     }
-    @GetMapping("/listAvailable")
+    @GetMapping("/listBookStock")
     public List<BookDTO> listBookStock(@Param("name") String name){
         return bookService.listBookStock(name);
+    }
+    @PostMapping("/borrowBook2")
+    public String borrowBook2(@RequestBody BookManagement bookManagement){
+        return bookService.borrowBook2(bookManagement);
     }
 }

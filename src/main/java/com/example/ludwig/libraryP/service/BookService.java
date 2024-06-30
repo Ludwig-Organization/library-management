@@ -28,6 +28,7 @@ public interface BookService {
 class BookServiceImp1 implements BookService{
     private final BookRepo bookRepo;
     private final CateRepo cateRepo;
+    @Autowired
     public BookServiceImp1(BookRepo bookRepo, CateRepo cateRepo) {
         this.bookRepo = bookRepo;
         this.cateRepo = cateRepo;

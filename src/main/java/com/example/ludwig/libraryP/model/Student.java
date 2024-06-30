@@ -1,12 +1,19 @@
 package com.example.ludwig.libraryP.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.ZonedDateTime;
 import java.util.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Student {
     @Id
@@ -26,6 +33,21 @@ public class Student {
     @Future(message = "Only future time applicable")
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JsonManagedReference("student-books")
     private Set<Book> list = new HashSet<>();
+    @Override
+    public String toString() {
+
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", borrowDate=" + borrowDate +
+                ", returnDate=" + returnDate +
+                ", list=" + list +
+                '}';
+    }
 }

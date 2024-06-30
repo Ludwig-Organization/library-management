@@ -1,5 +1,6 @@
 package com.example.ludwig.libraryP.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -28,13 +29,12 @@ public class Book {
     //RelationShip
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @ToString.Exclude
+    @JsonBackReference("category-books")
     private Category category;
     @ManyToOne
     @JoinColumn(name = "student_id")
-    @ToString.Exclude
+    @JsonBackReference("student-books")
     private Student student;
-
     @Override
     public String toString() {
         return "Book{" +
@@ -44,7 +44,7 @@ public class Book {
                 ", publisher='" + publisher + '\'' +
                 ", status=" + status +
                 ", category=" + category +
-//                ", student=" + student.getId() +
+                ", student=" + student +
                 '}';
     }
 }

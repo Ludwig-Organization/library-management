@@ -1,4 +1,7 @@
 package com.example.ludwig.libraryP.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -30,7 +33,8 @@ public class Student {
     @Future(message = "Only future time applicable")
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JsonManagedReference("student-books")
     private Set<Book> list = new HashSet<>();
     @Override
     public String toString() {
@@ -43,7 +47,7 @@ public class Student {
                 ", phone='" + phone + '\'' +
                 ", borrowDate=" + borrowDate +
                 ", returnDate=" + returnDate +
-//                ", list=" + list +
+                ", list=" + list +
                 '}';
     }
 }

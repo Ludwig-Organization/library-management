@@ -43,10 +43,8 @@ class StudentServiceImp1 implements StudentService {
     @Transactional
     public Student findStudentById(int id) {
         Student student =  studentRepo.findById(id).orElse(null);
-        Set<Book> bookSet = student.getList();
         return student;
     }
-
     @Override
     @Transactional
     public void updateStudent(Student student) {
@@ -57,16 +55,17 @@ class StudentServiceImp1 implements StudentService {
     public Set<Book> getListBookByStudentID(int id) {
         Student student = studentRepo.findById(id).orElse(null);
         Set<Book> bookSet = new HashSet<>();
-        for (Book b: studentRepo.getBooksByStudentId(id)){
+//        for (Book b: studentRepo.getBooksByStudentId(id)){
+        for (Book b: student.getList()){
             bookSet.add(b);
         }
         return bookSet;
     }
     @Override
-    public StudentDTO borrowBook(Student student) {
+    public StudentDTO borrowBook(Student student) { //list book contains only id of book
         Student studentDB = studentRepo.findById(student.getId()).orElse(null);
-        //Handle list Books of input
-        Set<Book> bookSet1 = new HashSet<>();
+        //Handle list Books from input
+        Set<Book> bookSet1 = studentDB.getList();
         for (Book b : student.getList()){
             Book book = bookRepo.findById(b.getId()).orElse(null);
             if (book != null && book.isStatus() == true){
@@ -77,6 +76,7 @@ class StudentServiceImp1 implements StudentService {
         }
         studentDB.setList(bookSet1);
         studentRepo.save(studentDB);
+        //Convert student to studentDTO
         Set<Book> bookSet = getListBookByStudentID(student.getId());
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setId(student.getId());

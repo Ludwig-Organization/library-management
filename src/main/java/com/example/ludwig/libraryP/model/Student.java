@@ -26,6 +26,6 @@ public class Student {
     @Future(message = "Only future time applicable")
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE)
     private Set<Book> list = new HashSet<>();
 }

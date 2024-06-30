@@ -18,6 +18,6 @@ public class Category {
     private int id;
     @NotBlank(message = "Not Blank")
     private String cateName;
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<Book> bookList = new ArrayList<>();
 }

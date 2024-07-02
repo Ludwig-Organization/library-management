@@ -28,7 +28,7 @@ public class Student {
     private ZonedDateTime borrowDate;
     @Temporal(TemporalType.TIMESTAMP)
     private ZonedDateTime returnDate;
-    @OneToMany(mappedBy = "student", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonManagedReference("student-books")
     private Set<Book> list = new HashSet<>();
 }
